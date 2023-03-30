@@ -5,7 +5,6 @@ import ImegesApiService from './js/gallery-service';
 import {
   renderGallery,
   clearThePage,
-  smoothScrolling,
 } from './js/render-gallery';
 
 const DEBOUNCE_DELAY = 300;
@@ -13,14 +12,12 @@ const DEBOUNCE_DELAY = 300;
 const refs = {
   form: document.querySelector('#search-form'),
   sentinel: document.querySelector('#sentinel'),
-  // loadMore: document.querySelector('.load-more'),
 };
 
 refs.form.addEventListener(
   'submit',
   throttle(handleFormSubmit, DEBOUNCE_DELAY)
 );
-// refs.loadMore.addEventListener('click', onLoadMore);
 
 const lightbox = new SimpleLightbox('.gallery a', {
   fadeSpeed: DEBOUNCE_DELAY,
@@ -42,18 +39,17 @@ async function fetchDataAndRenderPage() {
   }
 
   clearThePage();
-  // refs.loadMore.style.display = 'none';
   imegesApiService.resetNumberPage();
 
   const fetch = await imegesApiService.fetchImages();
-  if (fetch.data.total === 0) { // перенести в клас
+  if (fetch.data.total === 0) {
     imegesApiService.emptyArray();
     return;
   }
 
   imegesApiService.totalImagesFound(fetch.data.totalHits);
   renderGallery(fetch.data.hits);
-  // smoothScrolling();
+  observer.observe(refs.sentinel);
   lightbox.refresh();
 }
 
@@ -62,12 +58,11 @@ export async function onLoadMore() {
 
   const fetch = await imegesApiService.fetchImages();
   renderGallery(fetch.data.hits);
-  // smoothScrolling();
   lightbox.refresh();
 
   if (page * per_page > fetch.data.totalHits) {
     imegesApiService.finalyPage();
-    // refs.loadMore.style.display = 'none';
+    observer.unobserve(refs.sentinel);
   }
 }
 
@@ -83,15 +78,10 @@ const observer = new IntersectionObserver(onEntry, {
   rootMargin: '350px'
 })
 
-observer.observe(refs.sentinel);
-
-
 arrowTop.onclick = function () {
   window.scrollTo(pageXOffset, 0);
-  console.log(pageXOffset);
 };
 
 window.addEventListener('scroll', function () {
   arrowTop.hidden = pageYOffset < document.documentElement.clientHeight;
-  console.log(document.documentElement.clientHeight);
 });
