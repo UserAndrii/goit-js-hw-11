@@ -2,10 +2,7 @@ import throttle from 'lodash.throttle';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import ImegesApiService from './js/gallery-service';
-import {
-  renderGallery,
-  clearThePage,
-} from './js/render-gallery';
+import { renderGallery, clearThePage } from './js/render-gallery';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -75,8 +72,8 @@ function onEntry(entries) {
 }
 
 const observer = new IntersectionObserver(onEntry, {
-  rootMargin: '350px'
-})
+  rootMargin: '350px',
+});
 
 arrowTop.onclick = function () {
   window.scrollTo(pageXOffset, 0);

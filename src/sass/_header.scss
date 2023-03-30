@@ -9,7 +9,6 @@
   margin-right: 20px;
 }
 
-
 .menu-link {
   display: block;
   padding: 10px 0;
@@ -39,7 +38,7 @@
     bottom: 0;
 
     display: block;
-    content: " ";
+    content: ' ';
     width: 100%;
     height: 4px;
     background-color: #ffa500;
@@ -49,8 +48,8 @@
 }
 
 .menu-title {
-    text-align: center;
-    margin: 10px 0;
+  text-align: center;
+  margin: 10px 0;
 }
 
 .search-form {
@@ -75,84 +74,85 @@
 
   .search-btn {
     border: none;
-        padding: 10px 20px;
-        font-size: 16px;
-        position: relative;
-        background: transparent;
-        color: #ffa500;
-        text-transform: uppercase;
-        border: 2px solid #ffa500;
-        cursor: pointer;
-        transition: all 0.7s;
-        overflow: hidden;
-        border-radius: 5px;
-        margin-left: 20px;
-      }
+    padding: 10px 20px;
+    font-size: 16px;
+    position: relative;
+    background: transparent;
+    color: #ffa500;
+    text-transform: uppercase;
+    border: 2px solid #ffa500;
+    cursor: pointer;
+    transition: all 0.7s;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-left: 20px;
 
-      .search-btn:hover {
-        color: #000;
-      }
-      span {
-        transition: all 0.7s;
-        z-index: -1;
-      }
+    span {
+      transition: all 0.7s;
+      z-index: -1;
+    }
+  }
 
-      .search-btn .first {
-        content: "";
-        position: absolute;
-        right: 100%;
-        top: 0;
-        width: 25%;
-        height: 100%;
-        background: #ffa500;
-      }
+  .search-btn:hover {
+    color: #000;
+  }
 
-      .search-btn:hover .first {
-        top: 0;
-        right: 0;
-      }
-      .search-btn .second {
-        content: "";
-        position: absolute;
-        left: 25%;
-        top: -100%;
-        height: 100%;
-        width: 25%;
-        background: #ffa500;
-      }
+  .search-btn .first {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 0;
+    width: 25%;
+    height: 100%;
+    background: #ffa500;
+  }
 
-      .search-btn:hover .second {
-        top: 0;
-        left: 50%;
-      }
+  .search-btn:hover .first {
+    top: 0;
+    right: 0;
+  }
+  .search-btn .second {
+    content: '';
+    position: absolute;
+    left: 25%;
+    top: -100%;
+    height: 100%;
+    width: 25%;
+    background: #ffa500;
+  }
 
-      .search-btn .third {
-        content: "";
-        position: absolute;
-        left: 50%;
-        height: 100%;
-        top: 100%;
-        width: 25%;
-        background: #ffa500;
-      }
+  .search-btn:hover .second {
+    top: 0;
+    left: 50%;
+  }
 
-      .search-btn:hover .third {
-        top: 0;
-        left: 25%;
-      }
+  .search-btn .third {
+    content: '';
+    position: absolute;
+    left: 50%;
+    height: 100%;
+    top: 100%;
+    width: 25%;
+    background: #ffa500;
+  }
 
-      .search-btn .fourth {
-        content: "";
-        position: absolute;
-        left: 100%;
-        top: 0;
-        height: 100%;
-        width: 25%;
-        background: #ffa500;
-      }
+  .search-btn:hover .third {
+    top: 0;
+    left: 25%;
+  }
 
-      .search-btn:hover .fourth {
-        top: 0;
-        left: 0;
-      }
+  .search-btn .fourth {
+    content: '';
+    position: absolute;
+    left: 100%;
+    top: 0;
+    height: 100%;
+    width: 25%;
+    background: #ffa500;
+  }
+
+  .search-btn:hover .fourth {
+    top: 0;
+    left: 0;
+  }
 }
