@@ -11,25 +11,20 @@ export default class GalleryApiService {
     this.per_page = 40;
   }
 
-  async fetchImages() {
-    try {
-      const searchParams = new URLSearchParams({
-        key: API_KEY,
-        q: this.searchQuery,
-        image_type: 'photo',
-        orientation: 'horizontal',
-        safesearch: true,
-        per_page: this.per_page,
-        page: this.page,
-      });
+  fetchImages() {
+    const searchParams = new URLSearchParams({
+      key: API_KEY,
+      q: this.searchQuery,
+      image_type: 'photo',
+      orientation: 'horizontal',
+      safesearch: true,
+      per_page: this.per_page,
+      page: this.page,
+    });
 
-      const fetch = await axios.get(`${BASE_URL}?${searchParams}`);
-
-      this.incrementPage();
-      return fetch;
-    } catch (error) {
-      console.log(error);
-    }
+    const fetch = axios.get(`${BASE_URL}?${searchParams}`);
+    this.incrementPage();
+    return fetch;
   }
 
   emptyArray() {

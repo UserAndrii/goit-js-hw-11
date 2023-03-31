@@ -22,9 +22,14 @@ const lightbox = new SimpleLightbox('.gallery a', {
 
 const imegesApiService = new ImegesApiService();
 
+const observer = new IntersectionObserver(onEntry, {
+  rootMargin: '350px',
+});
+
 function handleFormSubmit(e) {
   e.preventDefault();
   imegesApiService.query = e.currentTarget.elements.searchQuery.value.trim();
+  observer.unobserve(refs.sentinel);
   fetchDataAndRenderPage();
 }
 
@@ -38,28 +43,39 @@ async function fetchDataAndRenderPage() {
   clearThePage();
   imegesApiService.resetNumberPage();
 
-  const fetch = await imegesApiService.fetchImages();
-  if (fetch.data.total === 0) {
-    imegesApiService.emptyArray();
-    return;
-  }
+  try {
+    const fetch = await imegesApiService.fetchImages();
+    if (fetch.data.total === 0) {
+      imegesApiService.emptyArray();
+      return;
+    }
 
-  imegesApiService.totalImagesFound(fetch.data.totalHits);
-  renderGallery(fetch.data.hits);
-  observer.observe(refs.sentinel);
-  lightbox.refresh();
+    renderGallery(fetch.data.hits);
+    imegesApiService.totalImagesFound(fetch.data.totalHits);
+    lightbox.refresh();
+
+    if (fetch.data.totalHits > imegesApiService.per_page) {
+      setTimeout(watchForSentinel, 300);
+    }
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function onLoadMore() {
   const { page, per_page } = imegesApiService;
 
-  const fetch = await imegesApiService.fetchImages();
-  renderGallery(fetch.data.hits);
-  lightbox.refresh();
+  try {
+    const fetch = await imegesApiService.fetchImages();
+    renderGallery(fetch.data.hits);
+    lightbox.refresh();
 
-  if (page * per_page > fetch.data.totalHits) {
-    imegesApiService.finalyPage();
-    observer.unobserve(refs.sentinel);
+    if (page * per_page > fetch.data.totalHits) {
+      observer.unobserve(refs.sentinel);
+      imegesApiService.finalyPage();
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -71,9 +87,9 @@ function onEntry(entries) {
   });
 }
 
-const observer = new IntersectionObserver(onEntry, {
-  rootMargin: '350px',
-});
+function watchForSentinel() {
+  observer.observe(refs.sentinel);
+}
 
 arrowTop.onclick = function () {
   window.scrollTo(pageXOffset, 0);
