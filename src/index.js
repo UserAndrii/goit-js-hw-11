@@ -23,7 +23,9 @@ const lightbox = new SimpleLightbox('.gallery a', {
 const imegesApiService = new ImegesApiService();
 
 const observer = new IntersectionObserver(onEntry, {
-  rootMargin: '350px',
+  root: null,
+  rootMargin: '0px 0px 350px 0px',
+  threshold: 1.0,
 });
 
 function handleFormSubmit(e) {
@@ -55,7 +57,7 @@ async function fetchDataAndRenderPage() {
     lightbox.refresh();
 
     if (fetch.data.totalHits > imegesApiService.per_page) {
-      setTimeout(watchForSentinel, 300);
+      observer.observe(refs.sentinel);
     }
   } catch (error) {
     console.error(error);
@@ -85,10 +87,6 @@ function onEntry(entries) {
       onLoadMore();
     }
   });
-}
-
-function watchForSentinel() {
-  observer.observe(refs.sentinel);
 }
 
 arrowTop.onclick = function () {
