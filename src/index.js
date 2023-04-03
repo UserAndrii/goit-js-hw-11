@@ -57,8 +57,7 @@ async function fetchDataAndRenderPage() {
     lightbox.refresh();
 
     if (fetch.data.totalHits > imegesApiService.per_page) {
-      setTimeout(watchForSentinel, 300);
-      // observer.observe(refs.sentinel);
+      observer.observe(refs.sentinel);
     }
   } catch (error) {
     console.error(error);
@@ -88,10 +87,6 @@ function onEntry(entries) {
       onLoadMore();
     }
   });
-}
-
-function watchForSentinel() {
-  observer.observe(refs.sentinel);
 }
 
 arrowTop.onclick = function () {
